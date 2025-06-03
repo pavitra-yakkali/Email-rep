@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class Email {
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String department;
+    private String email;
+    private int mailboxCapacity = 500;
+    private int defaultPasswordLength = 10;
+    private String companySuffix = "abccompany.com";
+
+    // Constructor to receive the first name and last name
+    public Email(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        // Ask for department and set it
+        this.department = setDepartment();
+
+        // Generate a random password
+        this.password = randomPassword(defaultPasswordLength);
+
+        // Generate email address
+        this.email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + department + "." + companySuffix;
+    }
+
+    // Method to ask for the department
+    private String setDepartment() {
+        System.out.println("DEPARTMENT CODES:");
+        System.out.println("1 for Sales");
+        System.out.println("2 for Development");
+        System.out.println("3 for Accounting");
+        System.out.println("0 for None");
+
+        System.out.print("Enter department code: ");
+        Scanner in = new Scanner(System.in);
+        int depChoice = in.nextInt();
+        if (depChoice == 1) return "sales";
+        else if (depChoice == 2) return "dev";
+        else if (depChoice == 3) return "acct";
+        else return "general";
+    }
+
+    // Generate a random password
+    private String randomPassword(int length) {
+        String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%";
+        char[] password = new char[length];
+        for (int i = 0; i < length; i++) {
+            int rand = (int)(Math.random() * passwordSet.length());
+            password[i] = passwordSet.charAt(rand);
+        }
+        return new String(password);
+    }
+
+    // Method to display user information
+    public void showInfo() {
+        System.out.println("\nDISPLAY NAME: " + firstName + " " + lastName);
+        System.out.println("COMPANY EMAIL: " + email);
+        System.out.println("PASSWORD: " + password);
+        System.out.println("MAILBOX CAPACITY: " + mailboxCapacity + "MB");
+    }
+}
